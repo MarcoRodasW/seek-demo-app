@@ -1,9 +1,11 @@
+import { getTasks } from "@/lib/services/tasks.service";
 import LogoutButton from "@/lib/shared/logout-button";
 import { LogOut } from "lucide-react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export default function TaskPage() {
+export default async function TaskPage() {
+	const tasks = await getTasks();
 	const isAuthenticated = cookies().has("token");
 	if (!isAuthenticated) {
 		return redirect("/");
@@ -19,7 +21,7 @@ export default function TaskPage() {
 				</LogoutButton>
 			</nav>
 			<section className="mt-24 container mx-auto bg-red-400 h-full w-full">
-				x
+				{JSON.stringify(tasks)}
 			</section>
 		</main>
 	);
