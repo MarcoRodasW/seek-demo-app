@@ -2,7 +2,7 @@
 
 import { columns } from "@/lib/shared/mocks/colums.mock";
 import { useTaskStore } from "@/lib/store/task-store";
-import type { TaskStatus } from "@/lib/types/task.types";
+import { TaskStatus } from "@/lib/types/task.types";
 import { DndContext, type DragEndEvent } from "@dnd-kit/core";
 import { useEffect } from "react";
 import { toast } from "sonner";
@@ -18,10 +18,17 @@ export default function TaskSection() {
 	const handleDragEnd = async (event: DragEndEvent) => {
 		const { active, over } = event;
 		const item = tasks.find((t) => t.id === active.id);
-		console.log(event);
 		if (!item) return;
-		console.log(event);
 		if (over && active.id !== over.id) {
+			if (over.id === TaskStatus.Completed) {
+				await updateTask({
+					...item,
+					status: TaskStatus.Completed,
+					completedAt: new Date(),
+				});
+				toast.success("Tarea actualizada");
+				return;
+			}
 			await updateTask({ ...item, status: over.id as TaskStatus });
 			toast.success("Tarea actualizada");
 		}
