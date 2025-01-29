@@ -14,6 +14,7 @@ import { type Task, TaskStatus } from "@/lib/types/task.types";
 import { Label } from "@radix-ui/react-label";
 import { PencilIcon } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface UpdateTaskModalProps {
 	task: Task;
@@ -35,6 +36,7 @@ export default function UpdateTaskModal({ task }: UpdateTaskModalProps) {
 			title,
 			description,
 		});
+		toast.success(`Tarea ${title} actualizada correctamente`);
 		setIsOpen(false);
 	};
 
