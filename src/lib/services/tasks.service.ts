@@ -1,4 +1,3 @@
-import { revalidatePath } from "next/cache";
 import { initialTasks } from "../shared/mocks/tasks.mock";
 import type { Task } from "../types/task.types";
 
@@ -6,12 +5,12 @@ export const getTasks = async () => {
 	return initialTasks;
 };
 
-export const createTask = async (task: Omit<Task, "id">) => {
+export const createTask = async (task: Omit<Task, "id" | "completedAt">) => {
 	const randomId = Math.floor(Math.random() * 1000000);
-	revalidatePath("/tasks");
 	return initialTasks.push({
-		id: randomId.toString(),
 		...task,
+		id: randomId.toString(),
+		completedAt: null,
 	});
 };
 
@@ -21,7 +20,6 @@ export const updateTask = async (task: Task) => {
 		throw new Error("Task not found");
 	}
 	initialTasks[index] = task;
-	revalidatePath("/tasks");
 	return task;
 };
 
@@ -31,6 +29,5 @@ export const deleteTask = async (taskId: string) => {
 		throw new Error("Task not found");
 	}
 	initialTasks.splice(index, 1);
-	revalidatePath("/tasks");
 	return true;
 };

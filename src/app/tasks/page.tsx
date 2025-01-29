@@ -1,18 +1,12 @@
-import { getTasks } from "@/lib/services/tasks.service";
+import TaskSection from "@/components/pages/tasks/task-section";
 import LogoutButton from "@/lib/shared/logout-button";
 import { LogOut } from "lucide-react";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
-export default async function TaskPage() {
-	const tasks = await getTasks();
-	const isAuthenticated = cookies().has("token");
-	if (!isAuthenticated) {
-		return redirect("/");
-	}
+export default function TaskPage() {
 	return (
-		<main className="min-h-screen h-full w-full">
-			<nav className="container mx-auto fixed left-0 right-0 top-0 w-full p-4 flex items-center">
+		<main className="min-h-screen h-full w-full container mx-auto">
+			<nav className=" w-full p-4 flex items-center">
 				<h1 className="text-3xl w-full font-semibold text-center">
 					Gestion de Tareas
 				</h1>
@@ -20,9 +14,9 @@ export default async function TaskPage() {
 					Cerrar sessión <LogOut />
 				</LogoutButton>
 			</nav>
-			<section className="mt-24 container mx-auto bg-red-400 h-full w-full">
-				{JSON.stringify(tasks)}
-			</section>
+			<Suspense>
+				<TaskSection />
+			</Suspense>
 		</main>
 	);
 }
