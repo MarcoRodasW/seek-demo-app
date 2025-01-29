@@ -15,14 +15,12 @@ export const useTaskStore = create<TaskStore>()(
 		(set, get) => ({
 			tasks: [],
 
-			// Fetch tasks
 			getTasks: async () => {
 				const tasks = get().tasks;
 				if (tasks.length > 0) return;
 				set({ tasks });
 			},
 
-			// Create a new task
 			createTask: async (task) => {
 				const randomId = Math.floor(Math.random() * 1000000);
 				const newTask: Task = {
@@ -35,7 +33,6 @@ export const useTaskStore = create<TaskStore>()(
 				return Promise.resolve();
 			},
 
-			// Update an existing task
 			updateTask: async (task) => {
 				const tasks = get().tasks;
 				const index = tasks.findIndex((t) => t.id === task.id);
@@ -47,7 +44,6 @@ export const useTaskStore = create<TaskStore>()(
 				return Promise.resolve();
 			},
 
-			// Delete a task
 			deleteTask: async (taskId) => {
 				const tasks = get().tasks.filter((t) => t.id !== taskId);
 				set({ tasks });

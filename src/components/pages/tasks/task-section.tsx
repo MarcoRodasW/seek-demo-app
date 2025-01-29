@@ -29,7 +29,6 @@ export default function TaskSection() {
 	const searchQuery = searchParams.get("search") || "";
 
 	useEffect(() => {
-		// Fetch tasks on component mount
 		getTasks();
 	}, [getTasks]);
 
