@@ -35,6 +35,7 @@ export default function LoginForm() {
 						setFormValues({ ...formValues, username: e.target.value })
 					}
 					placeholder="name@mail.com"
+					disabled
 					required
 				/>
 			</div>
@@ -47,6 +48,7 @@ export default function LoginForm() {
 					onChange={(e) =>
 						setFormValues({ ...formValues, password: e.target.value })
 					}
+					disabled
 					required
 				/>
 			</div>
