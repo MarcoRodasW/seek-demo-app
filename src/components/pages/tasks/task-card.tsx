@@ -44,7 +44,9 @@ export default function TaskCard({ task }: TaskCardProps) {
 			)}
 			<div className="flex flex-col w-full">
 				<CardHeader className="flex flex-row items-center justify-between p-2 w-full">
-					<CardTitle>{task.title}</CardTitle>
+					<CardTitle className="max-w-64 whitespace-normal break-words">
+						{task.title}
+					</CardTitle>
 					<div className="flex gap-2 items-center">
 						<UpdateTaskModal task={task} />
 						<Button
